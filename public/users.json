@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "users": []
+  "users": [
+    {
+      "id": "u_cyrus94",
+      "username": "cyrus94",
+      "label": "cyrus94",
+      "salt": "SfB6aUIEedvxmoWXqf4Pig==",
+      "iterations": 600000,
+      "verifier": "eFUIIIoZG/SvRH4H4BMqFjYVszj9MN9GzM4zXKyx7Sk=",
+      "createdAt": "2026-08-22"
+    }
+  ]
 }
