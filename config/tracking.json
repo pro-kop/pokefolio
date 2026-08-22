@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "Které produkty se každý den zapisují do historie. Historii nejde dohnat zpětně,",
+    "takže co tu není, o tom nebudeš mít data. Naopak sledovat všech ~130 tisíc produktů",
+    "je zbytečné — většina jsou karty za 20 centů.",
+    "",
+    "Tenhle soubor je ve veřejném repu. Neuvádí, co vlastníš ani za kolik — jen co se sleduje.",
+    "Pokud nechceš prozradit ani zájem o konkrétní kartu, nech extraProductIds prázdné:",
+    "cenový práh minSingleTrendEur ji stejně nejspíš zachytí."
+  ],
+
+  "includeAllSealed": true,
+  "minSingleTrendEur": 30,
+  "extraProductIds": [],
+  "maxProducts": 30000
+}

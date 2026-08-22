@@ -1,0 +1,49 @@
+name: Týdenní katalog
+
+on:
+  schedule:
+    # Pondělí 03:40 UTC, tedy před denní dávkou.
+    - cron: "40 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Přestavět katalog produktů
+        run: node scripts/fetch-catalog.mjs
+
+      - name: Commitnout katalog
+        id: commit
+        run: |
+          git config user.name "pokefolio-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/catalog.json
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data: katalog $(date -u +%Y-%m-%d)"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: catalog
+    if: needs.catalog.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy.yml
